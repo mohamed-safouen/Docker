@@ -1,15 +1,23 @@
+# Use Node.js version 18 as the base image
 FROM node:18
 
+# Set the working directory inside the container
 WORKDIR /app
 
+# Copy package.json to the working directory
 COPY package.json ./
 
+# Install dependencies defined in package.json
 RUN npm install
 
+# Copy all files from the current directory to the working directory
 COPY . .
 
+# Expose port 3000 to be accessible from outside the container
 EXPOSE 3000
 
+# Set environment variable to enable file watching in Docker
 ENV CHOKIDAR_USEPOLLING=true
 
+# Command to run when the container starts
 CMD ["npm","start"]

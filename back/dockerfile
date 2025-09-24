@@ -1,13 +1,21 @@
+# Use Node.js version 18 as the base image
 FROM node:18
 
+# Install nodemon globally for automatic server restarts during development
 RUN npm install -g nodemon
 
+# Set the working directory inside the container to /app
 WORKDIR /app
 
+# Copy package.json to the working directory first (for better layer caching)
 COPY package.json .
 
+# Install all dependencies defined in package.json
 RUN npm install
 
+# Copy all remaining files from the current directory to the working directory
 COPY . .
 
+# Define the command to run when the container starts
+# Uses npm run dev which is defined in package.json
 CMD ["npm","run","dev"]

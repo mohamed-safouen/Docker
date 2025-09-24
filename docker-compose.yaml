@@ -1,23 +1,26 @@
+# Docker Compose configuration file (version 3.8)
 version: "3.8"
 services:
+  # Frontend service configuration
   front:
-    build: ./front
-    container_name: front
+    build: ./front                # Build from Dockerfile in ./front directory
+    container_name: front         # Name the container 'front'
     ports:
-      - '3000:3000'
-
+      - '3000:3000'               # Map host port 3000 to container port 3000
+    
     volumes:
-      - ./front:/app
-      - /app/node_modules
-
-    stdin_open: true
+      - ./front:/app              # Mount local ./front directory to /app in container
+      - /app/node_modules         # Preserve container's node_modules (don't override with host)
+    
+    stdin_open: true              # Keep STDIN open (similar to docker run -i)
 
     
+  # Backend service configuration
   back:
-    build: ./back
-    container_name: back
+    build: ./back                 # Build from Dockerfile in ./back directory
+    container_name: back          # Name the container 'back'
     ports:
-      - '4000:4000'
+      - '4000:4000'               # Map host port 4000 to container port 4000
     volumes:
-      - ./back:/app
-      - /app/node_modules
+      - ./back:/app               # Mount local ./back directory to /app in container
+      - /app/node_modules         # Preserve container's node_modules (don't override with host)

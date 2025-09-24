@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  front:
+    build: ./front
+    container_name: front
+    ports:
+      - '3000:3000'
+
+    volumes:
+      - ./front:/app
+      - /app/node_modules
+
+    stdin_open: true
+
+    
+  back:
+    build: ./back
+    container_name: back
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./back:/app
+      - /app/node_modules
